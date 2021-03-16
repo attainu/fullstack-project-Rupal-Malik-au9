@@ -1,7 +1,65 @@
 import React, { PureComponent } from 'react'
 import './register.css';
+import M from 'materialize-css'
 export default class Register extends PureComponent {
+    constructor(){
+
+        super()
+        this.state={
+            name:"",
+            password:"",
+            email:"",
+            confirmedPass:""
+        }
+        
+    }
+
+    nameHandler = (event)=>{
+        this.setState({
+            name: event.target.value
+        })
+    }
+
+    emailHandler = (event)=>{
+        this.setState({
+            email:event.target.value
+        })
+    }
+
+    passwordHandler = (event)=>{
+        this.setState({
+            password:event.target.value
+        })
+    }
+
+    confirmPassHandler = (event)=>{
+        this.setState({
+            confirmedPass:event.target.value
+        })
+    }
+
+    PostData =()=>{
+        fetch("http://localhost:2000/signup",{
+            method:"post",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                name:this.state.name,
+                password:this.state.password,
+                email:this.state.email,
+                confirmedPass:this.state.confirmedPass
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            if(data.error){
+                M.toast({html:data.error})
+            }
+        })
+    }
     render() {
+        const {name,password,email,confirmedPass} = this.state;
+        // console.log(name,password,email,confirmedPass)
         return (
             <div>
 
@@ -17,26 +75,26 @@ export default class Register extends PureComponent {
                                         <div className="row">
                                             <div className="col-lg-12">
                                                 <div className="form-group">
-                                                    <input className="form-control" type="text" placeholder="full name" />
+                                                    <input className="form-control" type="text" placeholder="full name" value={name} onChange={this.nameHandler} />
                                                 </div>
                                             </div>
                                             <div className="col-lg-12">
                                                 <div className="form-group">
-                                                    <input className="form-control" type="email" placeholder="email address" />
+                                                    <input className="form-control" type="email" placeholder="email address" value={email} onChange={this.emailHandler} />
                                                 </div>
                                             </div>
                                             <div className="col-lg-6">
                                                 <div className="form-group">
-                                                    <input className="form-control" type="password" placeholder="password" />
+                                                    <input className="form-control" type="password" placeholder="password" value={password} onChange={this.passwordHandler}/>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6">
                                                 <div className="form-group">
-                                                    <input className="form-control" type="password" placeholder="confirm password" />
+                                                    <input className="form-control" type="password" placeholder="confirm password" value={confirmedPass} onChange={this.confirmPassHandler}/>
                                                 </div>
                                             </div>
                                             <div className="col-lg-12" style={{ "marginTop": "20px" }}>
-                                                <button type="submit" className="btn btn-md btn-block btn-danger-gradiant text-white border-0"><span> Create Account</span></button>
+                                                <button  className="btn btn-md btn-block btn-danger-gradiant text-white border-0" onClick={this.PostData}><span> Create Account</span></button>
 
                                             </div>
                                         </div>
