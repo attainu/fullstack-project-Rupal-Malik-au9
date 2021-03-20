@@ -9,23 +9,23 @@ export default class Navbar extends PureComponent {
                     <Link to="/"> <img src={logo} alt="logo" width="100" class="d-inline-block align-top" /></Link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                        <div style={{ "display": "flex", "flexDirection": "row" }}>
-                            <a class="nav-item">
+                        {/* <div style={{ "display": "flex", "flexDirection": "row" }}>
+                            <a class="nav-item" href='/'>
                                 <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </a>
-                            <a class="nav-item">
+                            <a class="nav-item" href='/about'>
                                 <a class="nav-link" href="/about">About</a>
                             </a>
-                            <a class="nav-item">
+                            <a class="nav-item" href='/travel'>
                                 <a class="nav-link" href="/travel">Travel</a>
                             </a>
-                            <a class="nav-item">
+                            <a class="nav-item" href='/food'>
                                 <a class="nav-link" href="/food">Eat</a>
                             </a>
-                            <a class="nav-item">
+                            <a class="nav-item" href='/sports'>
                                 <a class="nav-link" href="/sports">Sports</a>
                             </a>
-                        </div>
+                        </div> */}
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDropdown" style={{ "marginLeft": "40rem" }}>
                         <ul class="navbar-nav">
