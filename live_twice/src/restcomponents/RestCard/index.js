@@ -1,26 +1,24 @@
 import React from 'react';
 
 const index = (props) => {
-   console.log(props)
+    console.log(props)
     return (<>
-   <div className="card" style={{ "maxWidth": "48rem" }}>
-                        <div className="card-body">
-                            <img src={props.rest.image_url||props.rest.imageurl}onError={(e) => { e.target.onerror = null; e.target.src = 'https://media.self.com/photos/5f189b76c58e27c99fbef9e3/1:1/w_768,c_limit/blackberry-vanilla-french-toast.jpg' }} style={{ "width": "44rem" }} className="card-img-bottom" alt="..." />
-                            <h5 className="card-title">{props.rest.title}
-                            </h5>
-                            <h6 className="card-title">{props.rest.subTitle}
-                            </h6>
-                            <p className="card-text">
-                            {/* {props.rest.story}
-                            onError={(e) => { e.target.onerror = null; e.target.text = 'Not found' }}
-                             */}
-                            </p>
-                            <p className="card-text" style={{ "color": "green" }}>By-
-                            {props.rest.userName||props.rest.username}<br/> <i>Contact/Email-{props.rest.contact||"None"}</i><br />💗&nbsp;{props.rest.likes}<br/>👁‍🗨&nbsp;{props.rest.views}
-                            </p>
+        <div className="card" style={{ "maxWidth": "48rem" }}>
+            <div className="card-body">
+                <img src={props.rest.image_url || props.rest.imageurl} onError={(e) => { e.target.onerror = null; e.target.src = 'https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg' }} style={{ "width": "44rem" }} className="card-img-bottom" alt="..." />
+                <h5 className="card-title">{props.rest.title}
+                </h5>
+                <h6 className="card-title">{props.rest.subTitle || props.rest.sub_title}
+                </h6>
+                <p className="card-text" >
+                    {props.rest.story}
+                </p>
+                <p className="card-text" style={{ "color": "green" }}>By-
+                            {props.rest.userName || props.rest.username}<br /> <i>Contact/Email-{props.rest.contact || "None"}</i><br />💗&nbsp;{props.rest.likes}<br />👁‍🗨&nbsp;{props.rest.views}
+                </p>
 
-                        </div>
-                    </div>
+            </div>
+        </div>
         {/* <div classNameName="card" style={{ "width": "48rem", "marginLeft": "2rem", "marginBottom": "3%" }}>
 
             <img style={{ "height": '200px' }} classNameName="card-img-top" src={props.rest.image_url||props.rest.imageurl||'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528'} onError={(e) => { e.target.src = props.rest.imageurl }} alt="cardimagecap" />
@@ -75,12 +73,12 @@ const index = (props) => {
       
     </div>
   </div> */}
-  
-            
-            {/* </div> */}
+
+
+        {/* </div> */}
 
         {/* </div > */}
-        </>
+    </>
     )
 }
 
