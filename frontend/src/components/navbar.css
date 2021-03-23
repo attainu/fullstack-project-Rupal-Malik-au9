@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
+.main {
+  width: 50%;
+  margin: auto;
+  margin-top: 10px;
+}
+.nav-wrapper {
+  background: white;
+}
+.nav-wrapper a {
+  color: black;
+}
+.brand-logo {
+  font-family: "Grand Hotel", cursive;
+}
