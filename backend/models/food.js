@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const travelSchema = new mongoose.Schema({
+const FoodSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -35,4 +35,4 @@ const travelSchema = new mongoose.Schema({
   },
 });
 
-mongoose.model("TravelData", travelSchema, "travelData");
+mongoose.model("Food", FoodSchema, "food");

@@ -8,8 +8,6 @@ const { JWT_SECRET } = require("../keys");
 const requireLogin = require("../middlewares/requireLogin");
 const validator = require("email-validator");
 
-router.get("/protected", requireLogin, (req, res) => res.send("Hello User"));
-
 router.post("/signup", (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   if (!name || !email || !password || !confirmPassword) {

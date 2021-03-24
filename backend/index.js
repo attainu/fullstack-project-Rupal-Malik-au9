@@ -11,14 +11,49 @@ mongoose.connect(MONGOURI, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
-mongoose.connection.on("connected", () => console.log("Connected to Mongo"));
-mongoose.connection.on("error", () => console.log("error"));
+const db = mongoose.connection;
+db.on("connected", () => console.log("Connected to Mongo"));
+db.on("error", () => console.log("error"));
 
 require("./models/user");
 require("./models/post");
+require("./models/travel");
 // mongoose.model("User");
 
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
+app.use(require("./routes/travel"));
+app.get("/food", (req, res) => {
+  db.collection("food")
+    .find()
+    .toArray((err, postdata) => {
+      if (err) throw err;
+      else {
+        res.send(postdata);
+      }
+    });
+});
+
+app.get("/travel", (req, res) => {
+  db.collection("travelData")
+    .find()
+    .toArray((err, postdata) => {
+      if (err) throw err;
+      else {
+        res.send(postdata);
+      }
+    });
+});
+
+app.get("/sports", (req, res) => {
+  db.collection("sportsData")
+    .find()
+    .toArray((err, postdata) => {
+      if (err) throw err;
+      else {
+        res.send(postdata);
+      }
+    });
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
