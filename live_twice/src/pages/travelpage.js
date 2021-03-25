@@ -6,7 +6,6 @@ export default class Travelpage extends PureComponent {
     render() {
         return (
             <div>
-                <Navbar />
                 <h2>Travelpage</h2>
                  <div style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "marginTop": "2rem" }}>
                  <Travel/>

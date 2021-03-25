@@ -5,9 +5,10 @@ const index = (props) => {
     return (<>
         <div className="card" style={{ "maxWidth": "48rem" }}>
             <div className="card-body">
-                <img src={props.rest.image_url || props.rest.imageurl} onError={(e) => { e.target.onerror = null; e.target.src = 'https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg' }} style={{ "width": "44rem" }} className="card-img-bottom" alt="..." />
                 <h5 className="card-title">{props.rest.title}
                 </h5>
+                <img src={props.rest.image_url || props.rest.imageurl} onError={(e) => { e.target.onerror = null; e.target.src = 'https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg' }} style={{ "width": "44rem" }} className="card-img-bottom" alt={props.rest.imageurl} />
+
                 <h6 className="card-title">{props.rest.subTitle || props.rest.sub_title}
                 </h6>
                 <p className="card-text" >

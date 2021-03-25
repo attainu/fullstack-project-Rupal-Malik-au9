@@ -6,7 +6,6 @@ export default class Sportspage extends PureComponent {
     render() {
         return (
             <div>
-                <Navbar />
                 <h2>Sportspage</h2>
                 <div style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "marginTop": "2rem" }}>
                     <div class="card mb-3" style={{ "max-width": "48rem" }}>

@@ -6,7 +6,6 @@ export default class Foodpage extends PureComponent {
     render() {
         return (
             <div>
-                <Navbar />
                 <h2>Foodpage</h2>
                 <div style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "marginTop": "2rem" }}>
                 
