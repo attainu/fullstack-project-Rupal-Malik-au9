@@ -30,18 +30,21 @@ export default function Profile() {
           />
         </div>
         <div className="profile-stats">
-          <h4>{state ? state.name : "loading"}</h4>
+          <h4 style={{ fontFamily: "monospace" }}>{state ? state.name : ""}</h4>
+          <h5 style={{ fontFamily: "monospace" }}>
+            {state ? state.email : ""}
+          </h5>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               width: "90%",
-              fontFamily: "Times-New-Roman",
+              fontFamily: "monospace",
             }}
           >
-            <h5>120 posts</h5>
-            <h5>400 followers</h5>
-            <h5>100 following</h5>
+            <h6>{allImages.length} posts</h6>
+            <h6>{state ? state.followers.length : ""} followers</h6>
+            <h6>{state ? state.following.length : ""} following</h6>
           </div>
         </div>
       </div>

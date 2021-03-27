@@ -8,6 +8,8 @@ const { JWT_SECRET } = require("../keys");
 const requireLogin = require("../middlewares/requireLogin");
 const validator = require("email-validator");
 
+router.get("/protected", requireLogin, (req, res) => res.send("Hello User"));
+
 router.post("/signup", (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   if (!name || !email || !password || !confirmPassword) {
@@ -55,8 +57,11 @@ router.post("/signin", (req, res) => {
           if (matched) {
             // return res.json({ message: "Logged in" });
             const token = jwt.sign({ _id: userFounded._id }, JWT_SECRET);
-            const { _id, name, email } = userFounded;
-            res.json({ token, user: { _id, name, email } });
+            const { _id, name, email, followers, following } = userFounded;
+            res.json({
+              token,
+              user: { _id, name, email, followers, following },
+            });
           } else {
             return res.json({ err: "Invalid email or password" });
           }

@@ -6,7 +6,8 @@ import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import SignUp from "./components/pages/SignUp";
 import CreatePost from "./components/pages/CreatePost";
-import CategoriesSection from "./components/categories_section";
+import UserProfile from "./components/pages/UserProfile";
+import FollowingPost from "./components/pages/FollowingPosts";
 import { reducer, initialState } from "./reducer/userReducer";
 
 export const UserContext = createContext();
@@ -20,17 +21,18 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user });
       // history.push("/");
     } else {
-      history.push("/catergories");
+      history.push("/login");
     }
   }, []);
   return (
     <>
       <Route exact path="/" component={Home} />
       <Route path="/login" component={Login} />
-      <Route path="/profile" component={Profile} />
+      <Route exact path="/profile" component={Profile} />
       <Route path="/signup" component={SignUp} />
       <Route path="/create" component={CreatePost} />
-      <Route path="/categories" component={CategoriesSection} />
+      <Route path="/profile/:userid" component={UserProfile} />
+      <Route path="/followerspost" component={FollowingPost} />
     </>
   );
 };
@@ -40,8 +42,6 @@ function App() {
     <UserContext.Provider value={{ state, dispatch }}>
       <BrowserRouter>
         <Navbar />
-        <CategoriesSection />
-
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>

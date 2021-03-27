@@ -31,6 +31,7 @@ router.post("/createpost", requireLogin, (req, res) => {
     body,
     postedBy: req.user,
   });
+
   post.save((err, result) => {
     if (err) {
       console.log(err);
@@ -134,8 +135,6 @@ router.put("/comment", requireLogin, (req, res) => {
     });
 });
 
-router.get("/travel", (req, res) => {});
-
 router.delete("/deletepost/:postId", requireLogin, (req, res) => {
   Post.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
@@ -152,6 +151,24 @@ router.delete("/deletepost/:postId", requireLogin, (req, res) => {
             })
             .catch((err) => console.log(err));
         }
+      }
+    });
+});
+
+router.get("/followerspost", requireLogin, (req, res) => {
+  Post.find({
+    postedBy: {
+      $in: req.user.following,
+    },
+  })
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    // .populate("comments.postedBy", "_id name")
+    .then((posts) => {
+      if (!posts) {
+        console.log(err);
+      } else {
+        res.json({ posts });
       }
     });
 });

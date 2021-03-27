@@ -21,6 +21,9 @@ export default function Navbar() {
         <li key="2">
           <Link to="/create">Add Post</Link>
         </li>,
+        <li key="4">
+          <Link to="/followerspost">Following Posts</Link>
+        </li>,
         <li key="3">
           <button
             className="btn waves-effect waves-light "
