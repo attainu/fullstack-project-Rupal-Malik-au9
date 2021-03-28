@@ -4,11 +4,11 @@ import CategoriesSection from "../categories_section";
 import Header from "../header";
 import Footer from "../Footer";
 import './home.css';
-export default function Travel() {
+export default function Food() {
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:2000/travel", {
+    fetch("http://localhost:2000/food", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -133,8 +133,8 @@ export default function Travel() {
         setData(newData);
       });
   };
-  return ( <div className="main">
- <section style={{ width: '80%', margin: '1rem auto' }}>
+  return (<div className="main">
+  <section style={{ width: '80%', margin: '1rem auto' }}>
   <div style={{ "display": "flex", "flexWrap": "wrap", "justifyContent": "center", "paddingBottom": "2%" }}>
 
   {data.map((item) => {

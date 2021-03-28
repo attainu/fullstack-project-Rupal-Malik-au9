@@ -18,13 +18,17 @@ db.on("error", () => console.log("error"));
 require("./models/user");
 require("./models/post");
 require("./models/travel");
+require("./models/sport");
+require("./models/food");
 // mongoose.model("User");
 
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
-app.use(require("./routes/post"));
+app.use(require("./routes/travel"));
+app.use(require("./routes/sport"));
+app.use(require("./routes/food"));
 app.get("/food", (req, res) => {
-  db.collection("eat")
+  db.collection("foods")
     .find()
     .toArray((err, postdata) => {
       if (err) throw err;
@@ -55,7 +59,7 @@ app.get('/allposts', (req, res) => {
 
 
 app.get("/sports", (req, res) => {
-  db.collection("sportsData")
+  db.collection("sports")
     .find()
     .toArray((err, postdata) => {
       if (err) throw err;

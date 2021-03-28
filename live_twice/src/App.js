@@ -3,16 +3,15 @@ import { useEffect, createContext, useReducer, useContext } from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Home from "./components/pages/Home";
+import Sport from "./components/pages/Sport";
+import Food from "./components/pages/Food";
 import Login from "./components/pages/Login";
 import Profile from "./components/pages/Profile";
 import SignUp from "./components/pages/SignUp";
-import CategoriesSection from "./components/categories_section";
 
 import CreatePost from "./components/pages/CreatePost";
 import './App.css';
 import Travel from "./components/pages/Travel";
-import Sportspage from './pages/sportspage';
-import Foodpage from './pages/foodpage';
 import Homepage from './pages/homepage';
 import Aboutpage from './pages/aboutpage';
 // import Register from './pages/Register';
@@ -29,7 +28,7 @@ const Routing = () => {
       dispatch({ type: "USER", payload: user });
       // history.push("/");
     } else {
-      history.push("/catergories");
+      history.push("/categories");
     }
   }, []);
 
@@ -43,8 +42,8 @@ const Routing = () => {
       <Route path="/signup" component={SignUp} />
       <Route path="/create" component={CreatePost} />
           <Route path="/travel" component={Travel} />
-          <Route path="/sports" component={Sportspage} />
-          <Route path="/food" component={Foodpage} />
+          <Route path="/sports" component={Sport} />
+          <Route path="/food" component={Food} />
           <Route path="/about" component={Aboutpage} />
           <Route exact path="/home" component={Homepage} />
         </Switch>

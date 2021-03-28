@@ -4,11 +4,11 @@ import CategoriesSection from "../categories_section";
 import Header from "../header";
 import Footer from "../Footer";
 import './home.css';
-export default function Travel() {
+export default function Sport() {
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:2000/travel", {
+    fetch("http://localhost:2000/sport", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

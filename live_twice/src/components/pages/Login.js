@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
+import image from './../../Footer_01.jpg';
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../App";
 import M from "materialize-css";
-
+import './register.css';
 export default function Login() {
   const { state, dispatch } = useContext(UserContext);
   let history = useHistory();
@@ -40,39 +41,93 @@ export default function Login() {
       });
   };
   return (
-    <div className="main">
-      <div className="card teal darken-2 ">
-        <div className="card-content white-text">
-          <span className="card-title">Login to continue</span>
-        </div>
-        <div className="card-action">
-          <input
-            type="text"
-            placeholder="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-      </div>
-      <center>
-        <button
-          className="btn waves-effect waves-light teal darken-2"
-          onClick={() => loginHandler()}
-        >
-          Login
-        </button>
-        <h5>
-          <Link to="/signup">Don't have an account?</Link>
-        </h5>
-      </center>
+
+<div>
+
+<div class="banner6 py-5">
+
+    <div class="row">
+      
+          
+    
+        <div class="container">
+            <div class="col-lg-6 right-image align-justify-center pr-4 pl-0 contact-form">
+                <div class="mt-5">
+                    <h2 class="mb-3 font-weight-light"> Login Here</h2>
+                    <h6 class="subtitle font-weight-normal">Welcome Back</h6>
+                    <form class="mt-3">
+                        <div class="row">
+     
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <label for="inputEmail6" class="col-form-label">Email
+                                    <input class="form-control mt-3 mr-7" type="email" placeholder="email" onChange={(e) => {setEmail(e.target.value);}}/>
+                                    </label></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <label for="inputPassword6" class="col-form-label">Password
+                                    <input class="form-control mt-3 mr-7" type="password" placeholder="password" onChange={(e) => {setPassword(e.target.value);}}/>
+                                    </label></div>
+                            </div>
+                            <div class="col-lg-12" style={{ "marginTop": "20px" }}>
+                                <button type="submit" class="btn btn-md btn-block btn-danger-gradiant text-white border-0" onClick={() => loginHandler()}><Link to='/' style={{'color':"white"}}> Login</Link></button>
+                            </div>
+                        </div>
+                    </form>
+                   
+                        
+    
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+    <img class="col-lg-4 left-image" style={{ "width": "43rem" }} src={image} alt="register-image" />
+            </div>
+
     </div>
-  );
+</div>
+
+)
 }
+
+
+
+
+
+
+//     <div className="main">
+//       <div className="card teal darken-2 ">
+//         <div className="card-content white-text">
+//           <span className="card-title">Login to continue</span>
+//         </div>
+//         <div className="card-action">
+//           <input
+//             type="text"
+//             placeholder="email"
+//             onChange={(e) => {
+//               setEmail(e.target.value);
+//             }}
+//           />
+//           <input
+//             type="text"
+//             placeholder="password"
+//             onChange={(e) => {
+//               setPassword(e.target.value);
+//             }}
+//           />
+//         </div>
+//       </div>
+//       <center>
+//         <button
+//           className="btn waves-effect waves-light teal darken-2" onClick={() => loginHandler()}>Login
+//         </button>
+//         <h5>
+//           <Link to="/signup">Don't have an account?</Link>
+//         </h5>
+//       </center>
+//     </div>
+//   );
+// }

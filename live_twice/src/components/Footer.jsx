@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import footer from "../aboutus.webp"
+
+import { Link} from "react-router-dom";
 import image1 from './../Footer_01.jpg';
 import image2 from './../Footer_02.jpg';
 import image3 from './../Footer_03.jpg';
@@ -52,7 +54,11 @@ export default class Footer extends PureComponent {
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">About Us</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit dolores reiciendis animi pariatur quae voluptates.</p>
+                                        <p class="card-text"> 
+    <p>“You only live twice:<br/>
+Once when you are born<br/>
+And once when you look death in the face”.</p>
+  </p>
                                         <p class="card-text"><a href="/about">Read More</a></p>
                                     </div>
                                 </div>
@@ -75,7 +81,8 @@ export default class Footer extends PureComponent {
                                     <input type="submit" className="btn btn-primary mb-2" value="Subscribe Newsletter" />
                                 </div>
                             </form></div>
-                        <a href="#top" data-toggle="tooltip" data-placement="right" title="Way to Top">👆</a>
+                        <a href="#top" data-toggle="tooltip" data-placement="right" title="Way to Top">👆</a>&nbsp;&nbsp;
+                        <Link to='/'>Back to Home</Link>
                     </div>
 
                 </div>

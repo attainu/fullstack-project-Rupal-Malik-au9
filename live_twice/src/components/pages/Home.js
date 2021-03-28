@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../App";
 import CategoriesSection from "../categories_section";
 import Header from "../header";
+import Footer from "../Footer";
+import './home.css';
+
 export default function Home() {
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
@@ -124,23 +127,42 @@ export default function Home() {
       },
     })
       .then((res) => res.json())
-      .then((result) => {
+      .then((result,error) => {
+        if(error){
+          window.location.href('http://localhost:3000/login')
+        }else{
         const newData = data.filter((item) => {
           return item._id !== result._id;
         });
         setData(newData);
-      });
+      }});
   };
+ 
+
   return (
+  
     <div className="main">
       <Header/>
-      <CategoriesSection/>
+      <CategoriesSection/><section style={{ width: '80%', margin: '1rem auto' }}>
+      <div style={{ "display": "flex", "flexWrap": "wrap", "justifyContent": "center", "paddingBottom": "2%" }}>
+
       {data.map((item) => {
-        return (
-          <div className="card" key={item._id}>
-            <h5 className="center">
-              {item.postedBy.name}{" "}
-              {item.postedBy._id === state._id && (
+        {console.log(item)}
+        return ( <>
+         <div className="card" style={{ "maxWidth": "48rem" }} key={item._id}>
+            <div className="card-body">
+               
+                <img src={item.photo} onError={(e) => { e.target.onerror = null; e.target.src = 'https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg' }}  className="card-img-top" alt={item.imageurl} />
+                
+                <p className="card-text" style={{textAlign:"left","padding-top":"20px"}}><p data-letters={item.postedBy.name. slice(0, 2)}> 
+                            {item.postedBy.name}👑</p>  <div className="card-title">{item.title}
+                </div>
+                            <div className='wrapper'>
+                        
+                <p className="card-text demo-1">{item.body}
+                </p></div>               </p>
+                <div className='delete'>
+                {item.postedBy._id === state._id && (
                 <i
                   style={{ display: "inline", cursor: "pointer" }}
                   className="material-icons right"
@@ -148,22 +170,11 @@ export default function Home() {
                 >
                   delete
                 </i>
-              )}
-            </h5>
-
-            <div className="card-image">
-              <img
-                src={item.photo}
-                alt="loading"
-                style={{ height: "90vh", width: "90%", margin: "auto" }}
-              />
-            </div>
-            <div className="card-content">
+              )}</div>
+                <div className='thumbs'>
               {item.likes.includes(state._id) ? (
                 <div>
-                  <i className="material-icons" style={{ color: "red" }}>
-                    favorite
-                  </i>
+                  
                   <i
                     className="material-icons"
                     onClick={() => unLikePost(item._id)}
@@ -185,43 +196,57 @@ export default function Home() {
                     thumb_up
                   </i>
                 </div>
-              )}
+              )}</div>
+                
+                <hr/><div style={{textAlign:"left"}}>
+                <i className="material-icons" style={{ color: "red" }}>
+                    favorite
+                  </i>&nbsp;{item.likes.length}&ensp;&ensp;✍&ensp;{item.comments.length}
+</div>
 
-              <p>{item.likes.length} likes</p>
-              <h5>{item.title}</h5>
-              <h6>{item.subTitle}</h6>
-              <p>{item.body}</p>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  commentHandler(e.target[0].value, item._id);
-                }}
-              >
+            </div>
+        </div>
+        
+          {/* <div className="card" key={item._id} style={styles.pin}>
+            <div className="center" style={{"fontSize":"20px"}}>
+          {item.title}
+         
+          </div>
+           <img className='imag' src={item.photo} alt="loading" style={{"width":"100%","height":"100%","objectFit":"fill"}}/>
+               {/* {item.postedBy.name}{" "}  */}
+              
+              {/* <h5>{item.title}</h5> */}
+               {/* <h6>{item.subTitle}</h6>
+              <p>{item.body}</p>  */}
+              {/* <form onSubmit={(e) => { e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
                 <input type="text" placeholder="Comment here" />
               </form>
               <h5>Comment Section</h5>
-              <hr></hr>
-              {item.comments.map((comment) => {
+              <hr></hr> 
+               {item.comments.map((comment) => {
                 return (
-                  <h6 key={comment._id}>
+                  <div key={comment._id}>
                     <span style={{ fontWeight: "bold" }}>
                       {comment.postedBy.name}{" "}
                     </span>
                     {comment.text}
-                    <i
-                      style={{ display: "inline", cursor: "pointer" }}
-                      className="material-icons right"
-                      onClick={() => deleteCommentHandler(item._id)}
-                    >
+                    <i style={{ display: "inline", cursor: "pointer" }} className="material-icons right"  onClick={() => deleteCommentHandler(item._id)}>
                       delete
                     </i>
-                  </h6>
+                  </div>
                 );
-              })}
-            </div>
-          </div>
+              })} */}
+           
+           {/* </div> */}
+          
+          </>
         );
       })}
+      {/* </div> */}
+      
+    </div>
+   </section>
+   <Footer/>
     </div>
   );
 }
