@@ -145,8 +145,7 @@ export default function Home() {
       <Header/>
       <CategoriesSection/><section style={{ width: '80%', margin: '1rem auto' }}>
       <div style={{ "display": "flex", "flexWrap": "wrap", "justifyContent": "center", "paddingBottom": "2%" }}>
-
-      {data.map((item) => {
+      {data && data.map((item) => {
         {console.log(item)}
         return ( <>
          <div className="card" style={{ "maxWidth": "48rem" }} key={item._id}>
@@ -154,15 +153,15 @@ export default function Home() {
                
                 <img src={item.photo} onError={(e) => { e.target.onerror = null; e.target.src = 'https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg' }}  className="card-img-top" alt={item.imageurl} />
                 
-                <p className="card-text" style={{textAlign:"left","padding-top":"20px"}}><p data-letters={item.postedBy.name. slice(0, 2)}> 
-                            {item.postedBy.name}👑</p>  <div className="card-title">{item.title}
+                <p className="card-text" style={{textAlign:"left","padding-top":"20px"}}><p data-letters={item.postedBy&&item.postedBy.name. slice(0, 2)}> 
+                            {item.postedBy && item.postedBy.name}👑</p>  <div className="card-title">{item.title}
                 </div>
                             <div className='wrapper'>
                         
                 <p className="card-text demo-1">{item.body}
                 </p></div>               </p>
                 <div className='delete'>
-                {item.postedBy._id === state._id && (
+                {item.postedBy && item.postedBy._id === state._id && (
                 <i
                   style={{ display: "inline", cursor: "pointer" }}
                   className="material-icons right"
@@ -171,41 +170,59 @@ export default function Home() {
                   delete
                 </i>
               )}</div>
-                <div className='thumbs'>
-              {item.likes.includes(state._id) ? (
-                <div>
-                  
-                  <i
-                    className="material-icons"
-                    onClick={() => unLikePost(item._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    thumb_down
-                  </i>
-                </div>
-              ) : (
-                <div>
-                  <i className="material-icons" style={{ color: "wheat" }}>
-                    favorite
-                  </i>
-                  <i
-                    className="material-icons"
-                    onClick={() => likePost(item._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    thumb_up
-                  </i>
-                </div>
-              )}</div>
-                
-                <hr/><div style={{textAlign:"left"}}>
+                <hr/>
+                <div style={{textAlign:"left"}}>&nbsp;{item.likes.length}&nbsp; 
                 <i className="material-icons" style={{ color: "red" }}>
                     favorite
-                  </i>&nbsp;{item.likes.length}&ensp;&ensp;✍&ensp;{item.comments.length}
-</div>
+                  </i>&nbsp; {item.likes.includes(state._id) ? (
+                  <i className="material-icons" onClick={() => unLikePost(item._id)}style={{ cursor: "pointer" }}>
+                    thumb_down
+                  </i>
+               
+              ) : (
+                  <i className="material-icons" onClick={() => likePost(item._id)}style={{ cursor: "pointer" }}>
+                    thumb_up
+                  </i>
+              )}&ensp;&ensp;✍&ensp;{item.comments.length}
+            </div>
+
+<form onSubmit={(e) => {e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
+<h4>
+  <small class="text-muted">Comment here</small>
+</h4>
+<input type="text" class="form-control" id="inputPassword2" placeholder="comment here"></input>
+                </form>
+             
+              <hr/>
+              
+              {item.comments.map((comment) => {
+                return (<div style={{"display":"flex","flexDirection":"row","justifyContent":"space-between"}}>
+                  <div key={comment._id} style={{"paddingBottom":"20px"}}>
+                  <p className="card-text" style={{textAlign:"left"}}><p data-letters={comment.postedBy&&comment.postedBy.name. slice(0, 2)}> 
+                            {comment.postedBy && comment.postedBy.name}@gmail.com</p></p> 
+                    {comment.text}
+                           </div>
+                   
+                    <i style={{ display:"inline",cursor: "pointer" }}className="material-icons"
+                      onClick={() => deleteCommentHandler(comment._id)}>
+                      delete
+                    </i>
+                 </div>
+                
+                );
+              })}
+
+
+
+
 
             </div>
         </div>
+        
+
+
+
+
         
           {/* <div className="card" key={item._id} style={styles.pin}>
             <div className="center" style={{"fontSize":"20px"}}>
@@ -218,24 +235,7 @@ export default function Home() {
               {/* <h5>{item.title}</h5> */}
                {/* <h6>{item.subTitle}</h6>
               <p>{item.body}</p>  */}
-              {/* <form onSubmit={(e) => { e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
-                <input type="text" placeholder="Comment here" />
-              </form>
-              <h5>Comment Section</h5>
-              <hr></hr> 
-               {item.comments.map((comment) => {
-                return (
-                  <div key={comment._id}>
-                    <span style={{ fontWeight: "bold" }}>
-                      {comment.postedBy.name}{" "}
-                    </span>
-                    {comment.text}
-                    <i style={{ display: "inline", cursor: "pointer" }} className="material-icons right"  onClick={() => deleteCommentHandler(item._id)}>
-                      delete
-                    </i>
-                  </div>
-                );
-              })} */}
+    
            
            {/* </div> */}
           

@@ -44,7 +44,7 @@ export default function Profile() {
             }}
           >
            
-            <h5 className='pt-5'>{allImages.length}<br/> posts</h5>
+            <h5 className='pt-5'>{allImages && allImages.length}<br/> posts</h5>
             <h5 className='pt-5'>400 <br/>followers</h5>
             <h5 className='pt-5'>100 <br/>following</h5>
           </div>
@@ -53,7 +53,7 @@ export default function Profile() {
       <hr />
     
       <div className="gallery">
-        {allImages.map((image) => {
+        {allImages && allImages.map((image) => {
           
 document.querySelector('.title').innerHTML = allImages[0].title
           return <img key={image._id} src={image.photo} alt="loading" style={{"borderRadius":"8px","display":"flex","paddingTop":"1rem"}}/>;

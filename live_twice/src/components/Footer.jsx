@@ -15,13 +15,17 @@ export default class Footer extends PureComponent {
                     <div class="card-body">
 
                         Share your experience on
-                        &emsp;<img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Facebook_colored_svg_copy-128.png' style={{ "width": "28px" }} alt="social_icons"/> Facebook
+                        &emsp;<a href='https://www.facebook.com/wix' style={{"textDecoration":"none","color":"white" }}>
+                        <img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Facebook_colored_svg_copy-128.png' style={{ "width": "28px","color":"white" }} alt="social_icons"/> Facebook</a>
 
-                        &emsp; <img src='https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-128.png' style={{ "width": "28px" }} alt="social_icons"/> Twitter
-                        &emsp;
-                        <img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Pinterest_colored_svg-128.png' style={{ "width": "28px" }} alt="social_icons"/> Pinterest
-                        &emsp;
-                         <img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Instagram_colored_svg_1-128.png' style={{ "width": "28px" }} alt="social_icons"/> Instagram
+                        &emsp;<a href='https://www.twitter.com/wix' style={{"textDecoration":"none","color":"white" }}>
+                         <img src='https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-128.png' style={{ "width": "28px","color":"white" }} alt="social_icons"/> Twitter</a>
+                        &emsp;<a href='https://www.pinterest.com/wix' style={{"textDecoration":"none","color":"white" }}>
+
+                        <img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Pinterest_colored_svg-128.png' style={{ "width": "28px","color":"white" }} alt="social_icons"/> Pinterest</a>
+                        &emsp;<a href='https://www.instagram.com/wix/' style={{"textDecoration":"none","color":"white" }}>
+
+                         <img src='https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Instagram_colored_svg_1-128.png' style={{ "width": "28px","color":"white" }} alt="social_icons"/> Instagram</a>
 
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 
-import { Link} from "react-router-dom";
 import Footer from '../components/Footer';
 import image1 from ".././livetwice.jpg";
 import image2 from ".././livetwice1.jpg";
@@ -10,7 +9,7 @@ export default class Aboutpage extends PureComponent {
     render() {
         return (
             <div>
-                <Link to='/'>Back to Home</Link>
+                
                 <h1 class="display-5 mt-4">About Us</h1>
                 <figure>
   <blockquote class="blockquote mt-4">
