@@ -15,6 +15,8 @@ import Homepage from "./components/pages/homepage";
 import Aboutpage from "./components/pages/aboutpage";
 import UserProfile from "./components/pages/UserProfile";
 import FollowingPost from "./components/pages/FollowingPosts";
+import CreateFoodPost from "./components/pages/CreateFoodPost";
+import PostDetail from "./components/pages/PostDetail";
 // import Register from './pages/Register';
 import { reducer, initialState } from "./reducer/userReducer";
 
@@ -35,7 +37,7 @@ const Routing = () => {
     <Switch>
       <Route path="/home" component={Home} />
       <Route path="/login" component={Login} />
-      <Route exact path="/profile" component={Profile} />
+      <Route exact exact path="/profile" component={Profile} />
       <Route path="/signup" component={SignUp} />
       <Route path="/create" component={CreatePost} />
       <Route path="/travel" component={Travel} />
@@ -45,6 +47,9 @@ const Routing = () => {
       <Route exact path="/" component={Homepage} />
       <Route path="/profile/:userid" component={UserProfile} />
       <Route path="/followerspost" component={FollowingPost} />
+      <Route path="/createfoodpost" component={CreateFoodPost} />
+      <Route exact path="/postdetail/:postid" component={PostDetail} />
+      <Route path="profile/postdetail/:postid" component={PostDetail} />
     </Switch>
   );
 };

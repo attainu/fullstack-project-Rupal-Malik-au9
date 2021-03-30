@@ -7,6 +7,12 @@ export const reducer = (state, action) => {
   if (action.type === "CLEAR") {
     return null;
   }
+  if (action.type === "PICUPDATE") {
+    return {
+      ...state,
+      profileImage: action.payload,
+    };
+  }
 
   return state;
 };

@@ -49,9 +49,48 @@ export default function Footer() {
           Instagram
         </div>
       </div>
+      <div class="row" style={{ display: "flex" }}>
+        <div class="column" style={{ flex: "20%", padding: "5px" }}>
+          <img
+            src={image1}
+            alt="Snow"
+            style={{ width: "100%", height: "80%" }}
+          />
+        </div>
+        <div class="column" style={{ flex: "20%", padding: "5px" }}>
+          <img
+            src={image2}
+            alt="Forest"
+            style={{ width: "100%", height: "80%" }}
+          />
+        </div>
+        <div class="column" style={{ flex: "20%", padding: "5px" }}>
+          <img
+            src={image3}
+            alt="Mountains"
+            style={{ width: "100%", height: "80%" }}
+          />
+        </div>
+        <div class="column" style={{ flex: "20%", padding: "5px" }}>
+          <img
+            src={image4}
+            alt="Mountains"
+            style={{ width: "100%", height: "80%" }}
+          />
+        </div>
+        <div class="column" style={{ flex: "20%", padding: "5px" }}>
+          <img
+            src={image5}
+            alt="Mountains"
+            style={{ width: "100%", height: "80%" }}
+          />
+        </div>
+      </div>
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <img src={image1} alt="footer_image" style={{ flexGrow: "1" }} />
+      {/* <div
+        style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
+      >
+        <img src={image1} alt="footer_image" />
 
         <img src={image2} alt="footer_image" style={{ flexGrow: "1" }} />
 
@@ -60,7 +99,7 @@ export default function Footer() {
         <img src={image4} alt="footer_image" style={{ flexGrow: "1" }} />
 
         <img src={image5} alt="footer_image" style={{ flexGrow: "1" }} />
-      </div>
+      </div> */}
       <div
         style={{
           background: "#696969",
@@ -131,20 +170,6 @@ export default function Footer() {
               </div>
             </form>
           </div>
-          {/* <Link
-              to="#top"
-              data-toggle="tooltip"
-              data-placement="right"
-              title="Way to Top"
-            >
-              👆
-            </Link> */}
-          &nbsp;&nbsp;
-          {state ? (
-            <Link to="/home">Back to Home</Link>
-          ) : (
-            <Link to="/">Back to Home</Link>
-          )}
         </div>
       </div>
     </div>

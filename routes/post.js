@@ -172,6 +172,22 @@ router.get("/followerspost", requireLogin, (req, res) => {
       }
     });
 });
+router.get("/postdetail/:postid", requireLogin, (req, res) => {
+  Post.find({ _id: req.params.postid })
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    // .populate("comments.postedBy", "_id name")
+    .then((post) => {
+      if (!post) {
+        console.log(err);
+      } else {
+        res.json({ post });
+      }
+    })
+    .catch((err) => {
+      return res.status(404).json({ err: "No post found" });
+    });
+});
 
 router.delete("/deletecomment/:commentId", requireLogin, (req, res) => {});
 

@@ -16,29 +16,29 @@ const requireLogin = require("../middlewares/requireLogin");
 // });
 // const upload = multer({ storage });
 
-router.post("/createpost", requireLogin, (req, res) => {
-  const { title, subTitle, photo, body } = req.body;
-  //
+// router.post("/createpost", requireLogin, (req, res) => {
+//   const { title, subTitle, photo, body } = req.body;
+//   //
 
-  if (!title || !photo) {
-    return res.status(422).json({ err: "All fields are mandatory" });
-  }
-  req.user.password = undefined;
-  const post = new Post({
-    title,
-    subTitle,
-    photo,
-    body,
-    postedBy: req.user,
-  });
-  post.save((err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json({ post: result });
-    }
-  });
-});
+//   if (!title || !photo) {
+//     return res.status(422).json({ err: "All fields are mandatory" });
+//   }
+//   req.user.password = undefined;
+//   const post = new Post({
+//     title,
+//     subTitle,
+//     photo,
+//     body,
+//     postedBy: req.user,
+//   });
+//   post.save((err, result) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.json({ post: result });
+//     }
+//   });
+// });
 
 router.get("/sport", requireLogin, (req, res) => {
   Sport.find()
@@ -54,19 +54,19 @@ router.get("/sport", requireLogin, (req, res) => {
     });
 });
 
-router.get("/mypost", requireLogin, (req, res) => {
-  Sport.find({ postedBy: req.user._id })
-    .populate("postedBy", "_id name")
-    .then((post) => {
-      if (!post) {
-        res.status(404).json({ err: "No Post found" });
-      } else {
-        res.json({ post });
-      }
-    });
-});
+// router.get("/mypost", requireLogin, (req, res) => {
+//   Sport.find({ postedBy: req.user._id })
+//     .populate("postedBy", "_id name")
+//     .then((post) => {
+//       if (!post) {
+//         res.status(404).json({ err: "No Post found" });
+//       } else {
+//         res.json({ post });
+//       }
+//     });
+// });
 
-router.put("/like", requireLogin, (req, res) => {
+router.put("/likesport", requireLogin, (req, res) => {
   Sport.findByIdAndUpdate(
     req.body.postId,
     {
@@ -87,7 +87,7 @@ router.put("/like", requireLogin, (req, res) => {
     });
 });
 
-router.put("/unlike", requireLogin, (req, res) => {
+router.put("/unlikesport", requireLogin, (req, res) => {
   Sport.findByIdAndUpdate(
     req.body.postId,
     {
@@ -108,7 +108,7 @@ router.put("/unlike", requireLogin, (req, res) => {
     });
 });
 
-router.put("/comment", requireLogin, (req, res) => {
+router.put("/commentsport", requireLogin, (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
@@ -134,10 +134,7 @@ router.put("/comment", requireLogin, (req, res) => {
     });
 });
 
-
-
-
-router.delete("/deletepost/:postId", requireLogin, (req, res) => {
+router.delete("/deletepostsport/:postId", requireLogin, (req, res) => {
   Sport.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {
@@ -157,23 +154,25 @@ router.delete("/deletepost/:postId", requireLogin, (req, res) => {
     });
 });
 
-router.delete("/deletecomment/:commentId", requireLogin, (req, res) => {Sport.findOne({ _id: req.params.commentId })
-.populate("comments.postedBy", "_id name")
-.populate("postedBy", "_id name")
-.exec((err, post) => {
-  if (err || !post) {
-    return res.status(422).json({ err });
-  }
-  if (post) {
-    if (post.postedBy._id.toString() === req.user._id.toString()) {
-      post
-        .remove()
-        .then((result) => {
-          res.json(result);
-        })
-        .catch((err) => console.log(err));
-    }
-  }
-});});
+router.delete("/deletecomment/:commentId", requireLogin, (req, res) => {
+  Sport.findOne({ _id: req.params.commentId })
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, post) => {
+      if (err || !post) {
+        return res.status(422).json({ err });
+      }
+      if (post) {
+        if (post.postedBy._id.toString() === req.user._id.toString()) {
+          post
+            .remove()
+            .then((result) => {
+              res.json(result);
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+    });
+});
 
 module.exports = router;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
+import ReadMoreReact from "read-more-react";
 export default function FollowingPost() {
   const [data, setData] = useState([]);
-  const { state, dispatch } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
+  const { state } = useContext(UserContext);
   useEffect(() => {
     fetch("http://localhost:2000/followerspost", {
       headers: {
@@ -16,6 +18,19 @@ export default function FollowingPost() {
         setData(result.posts);
       });
   }, []);
+
+  const suggestedUsers = () => {
+    fetch("http://localhost:2000/allusers", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log("user" + result.user);
+        setUsers(result.user);
+      });
+  };
 
   const likePost = (id) => {
     fetch("http://localhost:2000/like", {
@@ -145,102 +160,188 @@ export default function FollowingPost() {
             {console.log("state", state)}
             {console.log("data", data)}
             {data.length !== 0 ? (
-              data.map((item) => {
-                return (
-                  <>
-                    <div
-                      className="card"
-                      style={{ maxWidth: "48rem" }}
-                      key={item._id}
-                    >
-                      <div className="card-body">
-                        <img
-                          src={item.photo}
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src =
-                              "https://image.freepik.com/free-vector/404-error-web-template-with-cute-dog_23-2147763341.jpg";
-                          }}
-                          className="card-img-top"
-                          alt={item.imageurl}
-                        />
+              data
+                .slice(0)
+                .reverse()
+                .map((item) => {
+                  return (
+                    <>
+                      <div
+                        className="card"
+                        style={{ width: "48rem" }}
+                        key={item._id}
+                      >
+                        <div className="card-body">
+                          <img
+                            style={{ width: "100%", height: "auto" }}
+                            src={item.photo}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src =
+                                "https://i.pinimg.com/originals/30/8a/ae/308aae03d136948294661f967b7c0323.gif";
+                            }}
+                            className="card-img-top"
+                            alt={item.imageurl}
+                          />
 
-                        <p
-                          className="card-text"
-                          style={{ textAlign: "left", "padding-top": "20px" }}
-                        >
-                          <p data-letters={item.postedBy.name.slice(0, 2)}>
-                            {item.postedBy._id === state._id ? (
-                              <Link to={"/profile"}>
-                                {item.postedBy.name}👑
-                              </Link>
-                            ) : (
-                              <Link to={"/profile/" + item.postedBy._id}>
-                                {item.postedBy.name}👑
-                              </Link>
-                            )}
-                          </p>{" "}
-                          <div className="card-title">{item.title}</div>
-                          <div className="wrapper">
-                            <p className="card-text demo-1">{item.body}</p>
-                          </div>{" "}
-                        </p>
-                        <div className="delete">
-                          {item.postedBy._id === state._id && (
-                            <i
-                              style={{ display: "inline", cursor: "pointer" }}
-                              className="material-icons right"
-                              onClick={() => deleteHandler(item._id)}
-                            >
-                              delete
-                            </i>
-                          )}
-                        </div>
-                        <div className="thumbs">
-                          {item.likes.includes(state._id) ? (
-                            <div>
+                          <p
+                            className="card-text"
+                            style={{ textAlign: "left", "padding-top": "20px" }}
+                          >
+                            <p data-letters={item.postedBy.name.slice(0, 2)}>
+                              {item.postedBy._id === state._id ? (
+                                <Link to={"/profile"}>
+                                  {item.postedBy.name}👑
+                                </Link>
+                              ) : (
+                                <Link to={"/profile/" + item.postedBy._id}>
+                                  {item.postedBy.name}👑
+                                </Link>
+                              )}
+                            </p>{" "}
+                            <div className="card-title">{item.title}</div>
+                            <div className="wrapper">
+                              <p className="card-text demo-1">
+                                <ReadMoreReact
+                                  text={item.body ? item.body : ""}
+                                  min={0}
+                                  ideal={50}
+                                  max={500}
+                                  readMoreText="click here to read more"
+                                />
+                              </p>
+                            </div>{" "}
+                          </p>
+                          <div className="delete">
+                            {item.postedBy._id === state._id && (
                               <i
-                                className="material-icons"
-                                onClick={() => unLikePost(item._id)}
-                                style={{ cursor: "pointer" }}
+                                style={{ display: "inline", cursor: "pointer" }}
+                                className="material-icons right"
+                                onClick={() => deleteHandler(item._id)}
                               >
-                                thumb_down
+                                delete
                               </i>
-                            </div>
-                          ) : (
-                            <div>
-                              {/* <i
+                            )}
+                          </div>
+                          <div className="thumbs">
+                            {item.likes.includes(state._id) ? (
+                              <div>
+                                <i
+                                  className="material-icons"
+                                  onClick={() => unLikePost(item._id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  thumb_down
+                                </i>
+                              </div>
+                            ) : (
+                              <div>
+                                {/* <i
                           className="material-icons"
                           style={{ color: "wheat" }}
                         >
                           favorite
                         </i> */}
-                              <i
-                                className="material-icons"
-                                onClick={() => likePost(item._id)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                thumb_up
-                              </i>
-                            </div>
-                          )}
-                        </div>
+                                <i
+                                  className="material-icons"
+                                  onClick={() => likePost(item._id)}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  thumb_up
+                                </i>
+                              </div>
+                            )}
+                          </div>
 
-                        <hr />
-                        <div style={{ textAlign: "left" }}>
-                          <i
-                            className="material-icons"
-                            style={{ color: "red" }}
+                          <hr />
+                          <div style={{ textAlign: "left" }}>
+                            <i
+                              className="material-icons"
+                              style={{ color: "red" }}
+                            >
+                              favorite
+                            </i>
+                            &nbsp;{item.likes.length}&ensp;&ensp;✍&ensp;
+                            {item.comments.length}
+                          </div>
+                          <form
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              commentHandler(e.target[0].value, item._id);
+                              e.target[0].value = "";
+                            }}
                           >
-                            favorite
-                          </i>
-                          &nbsp;{item.likes.length}&ensp;&ensp;✍&ensp;
-                          {item.comments.length}
+                            <h4>
+                              <small class="text-muted">Comment here</small>
+                            </h4>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputPassword2"
+                              placeholder="comment here"
+                            ></input>
+                          </form>
+
+                          {item.comments
+                            .slice(0)
+                            .reverse()
+                            .map((comment) => {
+                              return (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                  }}
+                                >
+                                  <div
+                                    key={comment._id}
+                                    style={{
+                                      paddingBottom: "20px",
+                                    }}
+                                  >
+                                    <p
+                                      className="card-text"
+                                      style={{
+                                        textAlign: "left",
+                                        display: "inline",
+                                      }}
+                                    >
+                                      <p
+                                        style={{ display: "inline" }}
+                                        data-letters={
+                                          comment.postedBy &&
+                                          comment.postedBy.name.slice(0, 2)
+                                        }
+                                      >
+                                        {comment.postedBy && (
+                                          // <h6
+                                          //   style={{
+                                          //     display: "inline",
+                                          //     fontWeight: "bolder",
+                                          //   }}
+                                          // >
+                                          <Link
+                                            to={
+                                              "/profile/" + comment.postedBy._id
+                                            }
+                                          >
+                                            {" "}
+                                            {comment.postedBy.name}
+                                          </Link>
+                                          // </h6>
+                                        )}
+                                      </p>
+                                    </p>{" "}
+                                    {comment.text}
+                                  </div>
+                                </div>
+                              );
+                            })}
                         </div>
                       </div>
-                    </div>
 
-                    {/* <div className="card" key={item._id} style={styles.pin}>
+                      {/* <div className="card" key={item._id} style={styles.pin}>
         <div className="center" style={{"fontSize":"20px"}}>
       {item.title}
      
@@ -248,10 +349,10 @@ export default function FollowingPost() {
        <img className='imag' src={item.photo} alt="loading" style={{"width":"100%","height":"100%","objectFit":"fill"}}/>
            {/* {item.postedBy.name}{" "}  */}
 
-                    {/* <h5>{item.title}</h5> */}
-                    {/* <h6>{item.subTitle}</h6>
+                      {/* <h5>{item.title}</h5> */}
+                      {/* <h6>{item.subTitle}</h6>
           <p>{item.body}</p>  */}
-                    {/* <form onSubmit={(e) => { e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
+                      {/* <form onSubmit={(e) => { e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
             <input type="text" placeholder="Comment here" />
           </form>
           <h5>Comment Section</h5>
@@ -270,14 +371,51 @@ export default function FollowingPost() {
             );
           })} */}
 
-                    {/* </div> */}
-                  </>
-                );
-              })
+                      {/* </div> */}
+                    </>
+                  );
+                })
             ) : (
               <center>
-                {" "}
-                <h4>No post or follow someone</h4>
+                <h1>No post or follow someone</h1>
+                {/* <button
+                  onClick={() => {
+                    suggestedUsers();
+                  }}
+                >
+                  Click here to see suggested users
+                </button>
+                <div
+                  style={{
+                    height: "50vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  {users &&
+                    users.slice(0, 5).map((user) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={user.profileImage}
+                          style={{
+                            borderRadius: "50%",
+                            width: "8vh",
+                            height: "8vh",
+                          }}
+                        />
+                        <Link to={"/profile/" + user._id}>
+                          <div>{user.name}</div>
+                        </Link>
+                      </div>
+                    ))}
+                </div> */}
               </center>
             )}
           </div>

@@ -10,7 +10,7 @@ export default class Homepage extends PureComponent {
       <div>
         <Header />
         <CategoriesSection />
-        {/* <Allposts /> */}
+        <h1>Login to see the posts</h1>
         <Footer />
       </div>
     );

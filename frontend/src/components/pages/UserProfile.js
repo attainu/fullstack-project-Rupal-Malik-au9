@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./profile.css";
 import { UserContext } from "../../App";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function Profile() {
   const [userImages, setUserImages] = useState(null);
@@ -148,7 +148,11 @@ export default function Profile() {
           <hr />
           <div className="gallery">
             {userImages.posts.map((image) => {
-              return <img key={image._id} src={image.photo} alt="loading" />;
+              return (
+                <Link to={"/postdetail/" + image._id}>
+                  <img key={image._id} src={image.photo} alt="loading" />
+                </Link>
+              );
             })}
           </div>
         </div>

@@ -26,59 +26,34 @@ export default class Aboutpage extends PureComponent {
           </figcaption>
         </figure>
 
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div
-            id="carouselExampleSlidesOnly"
-            class="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div class="carousel-inner">
-              <div
-                class="carousel-item active"
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <div class="carousel-inner">
+            <div
+              class="carousel-item active"
+              style={{
+                width: "38rem",
+                marginLeft: "5rem",
+                borderRadius: "8px",
+              }}
+            >
+              <img
+                src={image1}
+                class="d-block"
+                alt="..."
                 style={{
                   width: "38rem",
                   marginLeft: "5rem",
                   borderRadius: "8px",
                 }}
-              >
-                <img
-                  src={image1}
-                  class="d-block"
-                  alt="..."
-                  style={{
-                    width: "38rem",
-                    marginLeft: "5rem",
-                    borderRadius: "8px",
-                  }}
-                />
-              </div>
-              <div class="carousel-item">
-                <img
-                  src={image2}
-                  class="d-block"
-                  alt="..."
-                  style={{
-                    width: "38rem",
-                    marginLeft: "5rem",
-                    borderRadius: "8px",
-                  }}
-                />
-              </div>
-              <div class="carousel-item">
-                <img
-                  src={image3}
-                  class="d-block"
-                  alt="..."
-                  style={{
-                    width: "38rem",
-                    marginLeft: "5rem",
-                    borderRadius: "8px",
-                  }}
-                />
-              </div>
+              />
             </div>
           </div>
-
           <div style={{ width: "40rem" }}>
             <p class="lead p-4">
               This one may seem obvious, but there’s nothing like a good,

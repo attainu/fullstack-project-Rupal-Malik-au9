@@ -38,13 +38,6 @@
   color: white;
 }
 
-.demo-1 {
-  overflow: hidden;
-  display: -webkit-box;
-  max-width: 60rem;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
 .delete {
   display: block;
   position: absolute;

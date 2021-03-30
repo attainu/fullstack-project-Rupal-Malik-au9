@@ -79,7 +79,7 @@ export default function SignUp() {
                     <div class="form-group">
                       <input
                         class="form-control mt-3"
-                        type="text"
+                        type="password"
                         placeholder="password"
                         value={password}
                         onChange={(e) => {
@@ -92,7 +92,7 @@ export default function SignUp() {
                     <div class="form-group mt-3">
                       <input
                         class="form-control"
-                        type="text"
+                        type="password"
                         placeholder="confirmPassword"
                         value={confirmPassword}
                         onChange={(e) => {
@@ -124,7 +124,6 @@ export default function SignUp() {
                     </button>
                   </div>
                 </div>
-
                 <h5 className="mt-3">
                   <Link to="/login">Already have an account?</Link>
                 </h5>

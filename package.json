@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild " : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontEnd && npm run build --prefix frontEnd" 
+    "dev": "nodemon index.js",
+    "build": "cd frontend && run npm build",
+    "install-dep": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-dep && npm run build"
   },
   "keywords": [],
   "author": "",

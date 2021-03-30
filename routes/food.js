@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Food = mongoose.model("food");
+const Post = mongoose.model("Post");
 const requireLogin = require("../middlewares/requireLogin");
 
 // const multer = require("multer");
@@ -16,7 +17,7 @@ const requireLogin = require("../middlewares/requireLogin");
 // });
 // const upload = multer({ storage });
 
-router.post("/createpost", requireLogin, (req, res) => {
+router.post("/createfoodpost", requireLogin, (req, res) => {
   const { title, subTitle, photo, body } = req.body;
   //
 
@@ -24,7 +25,14 @@ router.post("/createpost", requireLogin, (req, res) => {
     return res.status(422).json({ err: "All fields are mandatory" });
   }
   req.user.password = undefined;
-  const post = new Post({
+  // const post = new Post({
+  //   title,
+  //   subTitle,
+  //   photo,
+  //   body,
+  //   postedBy: req.user,
+  // });
+  const foodPost = new Food({
     title,
     subTitle,
     photo,
@@ -36,6 +44,13 @@ router.post("/createpost", requireLogin, (req, res) => {
       console.log(err);
     } else {
       res.json({ post: result });
+    }
+  });
+  foodPost.save((err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ foodPost: result });
     }
   });
 });
@@ -54,19 +69,7 @@ router.get("/food", requireLogin, (req, res) => {
     });
 });
 
-router.get("/mypost", requireLogin, (req, res) => {
-  Food.find({ postedBy: req.user._id })
-    .populate("postedBy", "_id name")
-    .then((post) => {
-      if (!post) {
-        res.status(404).json({ err: "No Post found" });
-      } else {
-        res.json({ post });
-      }
-    });
-});
-
-router.put("/like", requireLogin, (req, res) => {
+router.put("/likefood", requireLogin, (req, res) => {
   Food.findByIdAndUpdate(
     req.body.postId,
     {
@@ -87,7 +90,7 @@ router.put("/like", requireLogin, (req, res) => {
     });
 });
 
-router.put("/unlike", requireLogin, (req, res) => {
+router.put("/unlikefood", requireLogin, (req, res) => {
   Food.findByIdAndUpdate(
     req.body.postId,
     {
@@ -108,7 +111,7 @@ router.put("/unlike", requireLogin, (req, res) => {
     });
 });
 
-router.put("/comment", requireLogin, (req, res) => {
+router.put("/commentfood", requireLogin, (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
@@ -134,7 +137,7 @@ router.put("/comment", requireLogin, (req, res) => {
     });
 });
 
-router.delete("/deletepost/:postId", requireLogin, (req, res) => {
+router.delete("/deletepostfood/:postId", requireLogin, (req, res) => {
   Food.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {

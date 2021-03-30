@@ -16,30 +16,6 @@ const requireLogin = require("../middlewares/requireLogin");
 // });
 // const upload = multer({ storage });
 
-router.post("/createpost", requireLogin, (req, res) => {
-  const { title, subTitle, photo, body } = req.body;
-  //
-
-  if (!title || !photo) {
-    return res.status(422).json({ err: "All fields are mandatory" });
-  }
-  req.user.password = undefined;
-  const post = new Post({
-    title,
-    subTitle,
-    photo,
-    body,
-    postedBy: req.user,
-  });
-  post.save((err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json({ post: result });
-    }
-  });
-});
-
 router.get("/travel", requireLogin, (req, res) => {
   Travel.find()
     .populate("postedBy", "_id name")
@@ -54,19 +30,7 @@ router.get("/travel", requireLogin, (req, res) => {
     });
 });
 
-router.get("/mypost", requireLogin, (req, res) => {
-  Travel.find({ postedBy: req.user._id })
-    .populate("postedBy", "_id name")
-    .then((post) => {
-      if (!post) {
-        res.status(404).json({ err: "No Post found" });
-      } else {
-        res.json({ post });
-      }
-    });
-});
-
-router.put("/like", requireLogin, (req, res) => {
+router.put("/liketravel", requireLogin, (req, res) => {
   Travel.findByIdAndUpdate(
     req.body.postId,
     {
@@ -87,7 +51,7 @@ router.put("/like", requireLogin, (req, res) => {
     });
 });
 
-router.put("/unlike", requireLogin, (req, res) => {
+router.put("/unliketravel", requireLogin, (req, res) => {
   Travel.findByIdAndUpdate(
     req.body.postId,
     {
@@ -108,7 +72,7 @@ router.put("/unlike", requireLogin, (req, res) => {
     });
 });
 
-router.put("/comment", requireLogin, (req, res) => {
+router.put("/commenttravel", requireLogin, (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
@@ -134,7 +98,7 @@ router.put("/comment", requireLogin, (req, res) => {
     });
 });
 
-router.delete("/deletepost/:postId", requireLogin, (req, res) => {
+router.delete("/deleteposttravel/:postId", requireLogin, (req, res) => {
   Travel.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {

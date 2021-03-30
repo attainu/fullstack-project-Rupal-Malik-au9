@@ -2,6 +2,13 @@ import logo from "./assets/logo.jpg";
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../App";
+import { NavDropdown } from "react-bootstrap";
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 export default function Navbar() {
   const { state, dispatch } = useContext(UserContext);
@@ -15,11 +22,6 @@ export default function Navbar() {
   const renderList = () => {
     if (state) {
       return [
-        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
-          <Link class="nav-link" to="/profile">
-            {state && `Welcome ${state.name}`}
-          </Link>
-        </li>,
         <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
           <Link class="nav-link active" aria-current="page" to="/home">
             Home
@@ -37,35 +39,84 @@ export default function Navbar() {
           </Link>
         </li>,
         <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
-          <Link class="nav-link" to="/travel">
-            Travel
-          </Link>
-        </li>,
-        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
-          <Link class="nav-link" to="/food">
-            Eat
-          </Link>
-        </li>,
-        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
-          <Link class="nav-link" to="/sports">
-            Sports
-          </Link>
-        </li>,
-        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
           <Link class="nav-link" to="/followerspost">
             Following Posts
           </Link>
         </li>,
 
+        <UncontrolledDropdown nav inNavbar>
+          <DropdownToggle nav caret>
+            Stories
+          </DropdownToggle>
+          <DropdownMenu right>
+            <Link to="/food">
+              <DropdownItem
+                style={{
+                  color: "black",
+                  background: "#51E1ED",
+                  border: "1px solid white",
+                }}
+              >
+                Eat
+              </DropdownItem>
+            </Link>
+            <Link to="/travel">
+              <DropdownItem
+                style={{
+                  color: "black",
+                  background: "#51E1ED",
+                  border: "1px solid white",
+                }}
+              >
+                Travel
+              </DropdownItem>
+            </Link>
+            <Link to="/sports">
+              <DropdownItem
+                style={{
+                  color: "black",
+                  background: "#51E1ED",
+                  border: "1px solid white",
+                }}
+              >
+                Sports
+              </DropdownItem>
+            </Link>
+          </DropdownMenu>
+        </UncontrolledDropdown>,
+
+        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
+          <Link class="nav-link" to="/profile">
+            {state && (
+              <>
+                <img
+                  src={state.profileImage}
+                  style={{ borderRadius: "50%", width: "7vh", height: "7vh" }}
+                />{" "}
+                {state.name && state.name.toUpperCase()}
+              </>
+            )}
+          </Link>
+        </li>,
+
         <li key="3">
-          <button className="btn btn-light " onClick={() => logoutHandler()}>
+          <button
+            className="btn btn-light "
+            style={{
+              marginTop: "10px",
+              background: "white",
+              color: "black",
+              border: "none",
+            }}
+            onClick={() => logoutHandler()}
+          >
             Logout
           </button>
         </li>,
       ];
     } else {
       return [
-        <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
+        <li class="nav-item " style={{ marginLeft: "0.8rem" }}>
           <Link class="nav-link" to="/about">
             About
           </Link>
@@ -85,8 +136,11 @@ export default function Navbar() {
   };
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light "
+        style={{ zIndex: "10" }}
+      >
+        <div class="container-fluid ">
           <Link to={state ? "/home" : "/"}>
             {" "}
             <img
@@ -97,7 +151,7 @@ export default function Navbar() {
             />
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNavDropdown"
@@ -108,11 +162,13 @@ export default function Navbar() {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div
-            class="collapse navbar-collapse"
+            className="collapse navbar-collapse "
             id="navbarNavDropdown"
             style={{ marginLeft: "35rem" }}
           >
-            <ul class="navbar-nav">{renderList()}</ul>
+            <ul className="navbar-nav " style={{ marginLeft: "auto" }}>
+              {renderList()}
+            </ul>
           </div>
         </div>
       </nav>

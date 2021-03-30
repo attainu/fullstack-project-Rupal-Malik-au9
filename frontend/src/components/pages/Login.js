@@ -104,21 +104,23 @@ export default function Login() {
                     {/* Login */}
                     {/* </Link> */}
                     {/* </button> */}
-                    <center>
-                      <button
-                        disabled={
-                          !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
-                            email
-                          )
-                        }
-                        className="btn waves-effect waves-light teal darken-2"
-                        onClick={() => loginHandler()}
-                      >
-                        Login
-                      </button>
-                    </center>
+
+                    <button
+                      disabled={
+                        !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
+                          email
+                        )
+                      }
+                      className="btn waves-effect waves-light teal darken-2"
+                      onClick={() => loginHandler()}
+                    >
+                      Login
+                    </button>
                   </div>
                 </div>
+                <h5 className="mt-3">
+                  <Link to="/signup">New User?Register here</Link>
+                </h5>
               </div>
             </div>
           </div>

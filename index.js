@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 const { MONGOURI } = require("./config/keys");
 
-mongoose.connect(MONGOURI, {
+mongoose.connect(process.env.MONGOURI || MONGOURI, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
@@ -28,53 +28,12 @@ app.use(require("./routes/travel"));
 app.use(require("./routes/sport"));
 app.use(require("./routes/food"));
 app.use(require("./routes/user"));
-// app.get("/food", (req, res) => {
-//   db.collection("foods")
-//     .find()
-//     .toArray((err, postdata) => {
-//       if (err) throw err;
-//       else {
-//         res.send(postdata);
-//       }
-//     });
-// });
 
-// app.get("/travel", (req, res) => {
-//   db.collection("travels")
-//     .find()
-//     .toArray((err, postdata) => {
-//       if (err) throw err;
-//       else {
-//         res.send(postdata);
-//       }
-//     });
-// });
-// app.get("/allposts", (req, res) => {
-//   db.collection("posts")
-//     .find()
-//     .toArray((err, postdata) => {
-//       if (err) throw err;
-//       else {
-//         res.send(postdata);
-//       }
-//     });
-// });
-
-// app.get("/sports", (req, res) => {
-//   db.collection("sports")
-//     .find()
-//     .toArray((err, postdata) => {
-//       if (err) throw err;
-//       else {
-//         res.send(postdata);
-//       }
-//     });
-// });
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static("frontEnd/build"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
   const path = require("path");
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontEnd", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
 

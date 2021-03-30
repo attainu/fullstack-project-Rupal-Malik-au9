@@ -83,7 +83,31 @@ router.put("/unfollow", requireLogin, (req, res) => {
     }
   );
 });
+router.get("/allusers", requireLogin, (req, res) => {
+  User.find()
+    .select("-password")
+    .then((user) => {
+      res.json({ user });
+    })
+    .catch((err) => {
+      return res.status(404).json({ err });
+    });
+});
 
-router.post("/usersearch", (req, res) => {});
+router.put("/updateprofileimage", requireLogin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: { profileImage: req.body.profileImage },
+    },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ err: "Can't be updated" });
+      }
+      res.json(result);
+    }
+  );
+});
 
 module.exports = router;

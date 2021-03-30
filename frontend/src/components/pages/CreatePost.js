@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 
 import image2 from "../assets/Footer_01.jpg";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function CreatePost() {
   let history = useHistory();
