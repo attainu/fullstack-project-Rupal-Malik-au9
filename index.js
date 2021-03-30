@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 2000;
+const port = process.env.PORT || 2000;
 app.use(express.json());
 app.use(cors());
 const { MONGOURI } = require("./config/keys");
@@ -78,4 +78,4 @@ if (process.env.NODE_ENV == "production") {
   });
 }
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(port, () => console.log(`Server is running on port ${port}`));

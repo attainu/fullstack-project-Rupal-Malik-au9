@@ -21,7 +21,7 @@ export default function Navbar() {
           </Link>
         </li>,
         <li class="nav-item" style={{ marginLeft: "0.8rem" }}>
-          <Link class="nav-link active" aria-current="page" to="/">
+          <Link class="nav-link active" aria-current="page" to="/home">
             Home
           </Link>
         </li>,

@@ -4,6 +4,7 @@ import CategoriesSection from "../categories_section";
 import Header from "../header";
 import Footer from "../Footer";
 import "./home.css";
+import { Link } from "react-router-dom";
 export default function Travel() {
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
@@ -118,23 +119,11 @@ export default function Travel() {
         setData(newData);
       });
   };
-  const deleteCommentHandler = (commentId) => {
-    fetch(`http://localhost:2000/deletecomment/${commentId}`, {
-      method: "delete",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const newData = data.filter((item) => {
-          return item._id !== result._id;
-        });
-        setData(newData);
-      });
-  };
+
   return (
     <div className="main">
+      <Header />
+      {/* <CategoriesSection /> */}
       <section style={{ width: "80%", margin: "1rem auto" }}>
         <div
           style={{
@@ -144,10 +133,11 @@ export default function Travel() {
             paddingBottom: "2%",
           }}
         >
-          {data &&
+          {data ? (
             data.map((item) => {
               {
                 console.log(item);
+                console.log("state", state);
               }
               return (
                 <>
@@ -173,12 +163,18 @@ export default function Travel() {
                         style={{ textAlign: "left", "padding-top": "20px" }}
                       >
                         <p data-letters={item.postedBy.name.slice(0, 2)}>
-                          {item.postedBy.name}👑
-                        </p>{" "}
+                          {item.postedBy._id === state._id ? (
+                            <Link to={"/profile"}>{item.postedBy.name}👑</Link>
+                          ) : (
+                            <Link to={"/profile/" + item.postedBy._id}>
+                              {item.postedBy.name}👑
+                            </Link>
+                          )}
+                        </p>
                         <div className="card-title">{item.title}</div>
                         <div className="wrapper">
                           <p className="card-text demo-1">{item.body}</p>
-                        </div>{" "}
+                        </div>
                       </p>
                       <div className="delete">
                         {item.postedBy._id === state._id && (
@@ -204,12 +200,12 @@ export default function Travel() {
                           </div>
                         ) : (
                           <div>
-                            <i
+                            {/* <i
                               className="material-icons"
                               style={{ color: "wheat" }}
                             >
                               favorite
-                            </i>
+                            </i> */}
                             <i
                               className="material-icons"
                               onClick={() => likePost(item._id)}
@@ -229,44 +225,76 @@ export default function Travel() {
                         &nbsp;{item.likes.length}&ensp;&ensp;✍&ensp;
                         {item.comments.length}
                       </div>
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          commentHandler(e.target[0].value, item._id);
+                        }}
+                      >
+                        <h4>
+                          <small class="text-muted">Comment here</small>
+                        </h4>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="inputPassword2"
+                          placeholder="comment here"
+                        ></input>
+                      </form>
+
+                      <hr />
+
+                      {item.comments.map((comment) => {
+                        return (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div
+                              key={comment._id}
+                              style={{
+                                paddingBottom: "20px",
+                              }}
+                            >
+                              <p
+                                className="card-text"
+                                style={{ textAlign: "left", display: "inline" }}
+                              >
+                                <p
+                                  style={{ display: "inline" }}
+                                  data-letters={
+                                    comment.postedBy &&
+                                    comment.postedBy.name.slice(0, 2)
+                                  }
+                                >
+                                  {comment.postedBy && (
+                                    <h6
+                                      style={{
+                                        display: "inline",
+                                        fontWeight: "bolder",
+                                      }}
+                                    >
+                                      {comment.postedBy.name}
+                                    </h6>
+                                  )}
+                                </p>
+                              </p>{" "}
+                              {comment.text}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
-
-                  {/* <div className="card" key={item._id} style={styles.pin}>
-        <div className="center" style={{"fontSize":"20px"}}>
-      {item.title}
-     
-      </div>
-       <img className='imag' src={item.photo} alt="loading" style={{"width":"100%","height":"100%","objectFit":"fill"}}/>
-           {/* {item.postedBy.name}{" "}  */}
-
-                  {/* <h5>{item.title}</h5> */}
-                  {/* <h6>{item.subTitle}</h6>
-          <p>{item.body}</p>  */}
-                  {/* <form onSubmit={(e) => { e.preventDefault(); commentHandler(e.target[0].value, item._id);}}>
-            <input type="text" placeholder="Comment here" />
-          </form>
-          <h5>Comment Section</h5>
-          <hr></hr> 
-           {item.comments.map((comment) => {
-            return (
-              <div key={comment._id}>
-                <span style={{ fontWeight: "bold" }}>
-                  {comment.postedBy.name}{" "}
-                </span>
-                {comment.text}
-                <i style={{ display: "inline", cursor: "pointer" }} className="material-icons right"  onClick={() => deleteCommentHandler(item._id)}>
-                  delete
-                </i>
-              </div>
-            );
-          })} */}
-
-                  {/* </div> */}
                 </>
               );
-            })}
-          {/* </div> */}
+            })
+          ) : (
+            <div>Loading</div>
+          )}
         </div>
       </section>
       <Footer />
