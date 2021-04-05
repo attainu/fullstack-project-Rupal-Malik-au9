@@ -1,4 +1,5 @@
 import logo from "./assets/logo.jpg";
+import logo1 from "./assets/icons8-second-life (2).svg";
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../App";
@@ -144,10 +145,17 @@ export default function Navbar() {
           <Link to={state ? "/home" : "/"}>
             {" "}
             <img
+              src={logo1}
+              alt="logo"
+              width="70"
+              class="d-inline-block align-top"
+            />
+            <img
               src={logo}
               alt="logo"
               width="70"
               class="d-inline-block align-top"
+              style={{ marginTop: "8px" }}
             />
           </Link>
           <button

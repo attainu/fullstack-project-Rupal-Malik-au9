@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import footer from "./assets/aboutus.webp";
 import { UserContext } from "../App";
-
 import { Link } from "react-router-dom";
 import image1 from "./assets/Footer_01.jpg";
 import image2 from "./assets/Footer_02.jpg";
@@ -10,7 +9,32 @@ import image4 from "./assets/Footer_04.jpg";
 import image5 from "./assets/footer_05.jpg";
 export default function Footer() {
   const { state, dispatch } = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const subscribeHandler = () => {
+    const data = {
+      members: [
+        {
+          email_address: email,
+          status: "subscribed",
+          merge_fields: {
+            FNAME: FirstName,
+          },
+        },
+      ],
+    };
+    const postData = JSON.stringify(data);
 
+    fetch("https://us1.api.mailchimp.com/3.0/lists/4765191fcd", {
+      method: "POST",
+      headers: {
+        Authorization: "auth b1267c7085f816ac6703b7af546858f1-us1",
+      },
+      body: postData,
+    })
+      .then(postData ? console.log("success") : console.log("fail"))
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <div
@@ -49,6 +73,7 @@ export default function Footer() {
           Instagram
         </div>
       </div>
+
       <div class="row" style={{ display: "flex" }}>
         <div class="column" style={{ flex: "20%", padding: "5px" }}>
           <img
@@ -86,20 +111,6 @@ export default function Footer() {
           />
         </div>
       </div>
-
-      {/* <div
-        style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
-      >
-        <img src={image1} alt="footer_image" />
-
-        <img src={image2} alt="footer_image" style={{ flexGrow: "1" }} />
-
-        <img src={image3} alt="footer_image" style={{ flexGrow: "1" }} />
-
-        <img src={image4} alt="footer_image" style={{ flexGrow: "1" }} />
-
-        <img src={image5} alt="footer_image" style={{ flexGrow: "1" }} />
-      </div> */}
       <div
         style={{
           background: "#696969",
@@ -154,6 +165,17 @@ export default function Footer() {
               }}
             >
               <div className="form-group mb-2">
+                <label className="sr-only">FirstName</label>
+                <input
+                  type="text"
+                  required
+                  className="form-control mb-2"
+                  id="staticFirstName2"
+                  placeholder="FirstName"
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
                 <label className="sr-only">Email</label>
                 <input
                   type="email"
@@ -161,15 +183,33 @@ export default function Footer() {
                   className="form-control mb-2"
                   id="staticEmail2"
                   placeholder="email@example.com"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
                 <input
                   type="submit"
                   className="btn btn-primary mb-2"
                   value="Subscribe Newsletter"
+                  onClick={() => subscribeHandler()}
                 />
               </div>
             </form>
           </div>
+          {/* <Link
+              to="#top"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Way to Top"
+            >
+              👆
+            </Link> */}
+          &nbsp;&nbsp;
+          {state ? (
+            <Link to="/home">Back to Home</Link>
+          ) : (
+            <Link to="/">Back to Home</Link>
+          )}
         </div>
       </div>
     </div>

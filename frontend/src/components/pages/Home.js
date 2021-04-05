@@ -175,11 +175,7 @@ export default function Home() {
                       >
                         <div className="card-body">
                           <img
-                            style={{
-                              width: "100%",
-                              height: "70vh",
-                              verticalAlign: "middle",
-                            }}
+                            style={{ maxWidth: "30rem", maxHeight: "35rem" }}
                             src={item.photo}
                             onError={(e) => {
                               e.target.onerror = null;

@@ -173,7 +173,7 @@ export default function FollowingPost() {
                       >
                         <div className="card-body">
                           <img
-                            style={{ width: "100%", height: "auto" }}
+                            style={{ maxWidth: "30rem", maxHeight: "35rem" }}
                             src={item.photo}
                             onError={(e) => {
                               e.target.onerror = null;

@@ -167,11 +167,7 @@ export default function Sport() {
                       <div className="card-body">
                         <img
                           src={item.photo}
-                          style={{
-                            width: "100%",
-                            height: "70vh",
-                            verticalAlign: "middle",
-                          }}
+                          style={{ maxWidth: "30rem", maxHeight: "35rem" }}
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src =

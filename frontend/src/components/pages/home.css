@@ -11,6 +11,10 @@
     height: 15vw;
     object-fit: cover;
 } */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Nunito:wght@300&display=swap");
+body {
+  font-family: "Montserrat Alternates", sans-serif;
+}
 .right {
   display: block;
   position: absolute;
